@@ -8,7 +8,8 @@ RUN apt-get update \
         libssl-dev \
         zlib1g-dev \
         wget \
-        git
+        git \
+        libpcre3-dev
 
 # Download and extract the Nginx source code
 ENV NGINX_VERSION nginx-1.23.4
