@@ -32,6 +32,3 @@ COPY --from=base /usr/lib/nginx/modules/ngx_http_proxy_connect_module.so /usr/li
 
 # Copy the nginx configuration file into the image
 COPY nginx.conf /etc/nginx/nginx.conf
-
-# Add the following line at the beginning of the `http` block in nginx.conf:
-# load_module modules/ngx_http_proxy_connect_module.so;
