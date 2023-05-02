@@ -1,5 +1,5 @@
 # Use the official nginx image as the base
-FROM nginx:latest AS base
+FROM nginx:1.24.0 AS base
 
 # Install build-time dependencies
 RUN apt-get update \
@@ -12,7 +12,7 @@ RUN apt-get update \
         libpcre3-dev
 
 # Download and extract the Nginx source code
-ENV NGINX_VERSION nginx-1.23.4
+ENV NGINX_VERSION nginx-1.24.0
 RUN wget --no-check-certificate http://nginx.org/download/${NGINX_VERSION}.tar.gz \
     && tar -xvf ${NGINX_VERSION}.tar.gz
 
@@ -26,7 +26,7 @@ RUN cd ${NGINX_VERSION} \
     && cp objs/ngx_http_proxy_connect_module.so /usr/lib/nginx/modules/
 
 # Copy the built ngx_http_proxy_connect_module.so
-FROM nginx:latest
+FROM nginx:1.24.0
 
 COPY --from=base /usr/lib/nginx/modules/ngx_http_proxy_connect_module.so /usr/lib/nginx/modules/
 
