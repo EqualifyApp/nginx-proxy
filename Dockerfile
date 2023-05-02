@@ -13,14 +13,14 @@ RUN apt-get update \
 
 # Download and extract the Nginx source code
 ENV NGINX_VERSION nginx-1.24.0
-RUN wget --no-check-certificate http://nginx.org/download/${NGINX_VERSION}.tar.gz \
-    && tar -xvf ${NGINX_VERSION}.tar.gz
+RUN wget --no-check-certificate http://nginx.org/download/1.24.0.tar.gz \
+    && tar -xvf 1.24.0.tar.gz
 
 # Clone ngx_http_proxy_connect_module repository
 RUN git clone https://github.com/chobits/ngx_http_proxy_connect_module.git
 
 # Build Nginx with ngx_http_proxy_connect_module
-RUN cd ${NGINX_VERSION} \
+RUN cd 1.24.0 \
     && ./configure --with-compat --add-dynamic-module=../ngx_http_proxy_connect_module \
     && make modules \
     && cp objs/ngx_http_proxy_connect_module.so /usr/lib/nginx/modules/
