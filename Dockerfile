@@ -1,4 +1,4 @@
-# Use the official nginx image as the base
+# Use the official Nginx image as the base
 FROM nginx:1.24.0 AS base
 
 # Install build-time dependencies
@@ -19,8 +19,9 @@ RUN wget --no-check-certificate http://nginx.org/download/nginx-1.24.0.tar.gz \
 # Clone ngx_http_proxy_connect_module repository
 RUN git clone https://github.com/chobits/ngx_http_proxy_connect_module.git
 
-# Build Nginx with ngx_http_proxy_connect_module
+# Apply the patch and build the module
 RUN cd nginx-1.24.0 \
+    && patch -p1 < ../ngx_http_proxy_connect_module/patch/proxy_connect_rewrite_102101.patch \
     && ./configure --with-compat --add-dynamic-module=../ngx_http_proxy_connect_module \
     && make modules \
     && cp objs/ngx_http_proxy_connect_module.so /usr/lib/nginx/modules/
